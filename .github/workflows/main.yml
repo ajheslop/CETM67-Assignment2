@@ -105,5 +105,5 @@ jobs:
         run: sam build --use-container
       - name: sam deploy
         working-directory: ./sam-app
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket s3://document-training --capabilities CAPABILITY_IAM --region us-east-1 
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket document-training --capabilities CAPABILITY_IAM --region us-east-1 
 
