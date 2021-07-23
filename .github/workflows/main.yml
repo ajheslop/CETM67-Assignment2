@@ -100,7 +100,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
       # sam build 
-      - run: sam build --use-container
+      - name: sam build
+        working-directory: ./sam-app
+        run: sam build --use-container
 
 # Run Unit tests- Specify unit tests here 
 
