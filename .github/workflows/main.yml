@@ -39,4 +39,4 @@ jobs:
       - name: Run our "test.py" file
         run: python test.py
       - name: Job Status
-        run: echo "THis job`s status is ${{ job.status}}"
+        run: echo "This jobs status is ${{ job.status }}."
