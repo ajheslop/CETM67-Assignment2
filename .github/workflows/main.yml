@@ -53,7 +53,11 @@ jobs:
 
   package-and-deploy:
 
+<<<<<<< HEAD
     runs-on: ubunut-latest
+=======
+    runs-on: ubuntu-latest
+>>>>>>> 8713a3da877306012c25f415a2a91fe13a46c5d5
 
     steps:
       - uses: actions/checkout@v2
@@ -73,6 +77,7 @@ jobs:
       - name: List files in the artifacts directory
         run: |
           cd ./artifacts && ls
+<<<<<<< HEAD
       
       - name: Push Zip to S3
         uses: jakejarvis/s3-sync-action@v0.3.1
@@ -84,3 +89,37 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRETS_ACCESS_KEY }}
       - name: Job Stats
         run: echo "This job status is ${{ job.status }}."
+=======
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+      - name: push zip to S3
+        run: |
+          aws s3 sync './artifacts/.' s3://document-training
+      - name: Job Stats
+        run: echo "This job status is ${{ job.status }}."
+        
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+      # sam build 
+      - run: sam build --use-container
+
+# Run Unit tests- Specify unit tests here 
+
+# sam deploy
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket s3://document-training --capabilities CAPABILITY_IAM --region us-east-1 
+>>>>>>> 8713a3da877306012c25f415a2a91fe13a46c5d5
