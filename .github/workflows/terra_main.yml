@@ -35,9 +35,11 @@ jobs:
         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+      working-directory: ./terraform-app
       run: terraform init -input=false
 
     - name: Terraform validation
+      working-directory: ./sam-app
       run: terraform validate
 
     - name: Terraform apply
@@ -45,4 +47,5 @@ jobs:
         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+      working-directory: ./sam-app
       run: terraform apply -auto-approve -input=false
