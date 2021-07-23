@@ -32,9 +32,9 @@ jobs:
 
     - name: Terraform init
       env:
-        access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
       working-directory: ./terraform-app
       run: terraform init -input=false
 
@@ -44,8 +44,8 @@ jobs:
 
     - name: Terraform apply
       env:
-        access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
       working-directory: ./terraform-app
       run: terraform apply -auto-approve -input=false
