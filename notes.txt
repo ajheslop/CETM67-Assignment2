@@ -1,0 +1,81 @@
+aws cloud formation
+aws SAM
+
+github actions
+
+jenkins, terraform, ansible 
+
+lambda function -
+Github intergration , unit tests, linting, package creation (zip)
+package delivery to S3
+
+Monitoring and analysis
+    cloud watch
+    metrics 
+     application uses traffic e.g.
+     http request volume
+     http response types 
+     lambda invocations
+     Misc Objects in S3, total size objects in S3, dynamodb
+
+     alarms
+     cloudwatch alarms 
+     breach of certain threshold
+
+pres/demo
+    reasons for using CI/CD practices 
+    Explain Github actions, workflows, yaml files
+    disadvantages / advantages
+    pipeline in actions
+    dashboard in actions
+    lessons learned
+
+
+- AWS SAM serverless application model (SAM)
+
+Single deployment configuration,
+intergration with development tools such as Github
+Local testing and debugging (requires docker)
+build in cloudformation for resources such as apigateway
+
+open-source framework for building serverless applications,
+define resources model in YAML, uses cloudformation 
+
+locally build and test debug
+
+https://aws.amazon.com/serverless/sam/
+
+
+- PROS AND CONS
+
+knowledge of cloudformation required for configuration of resources
+AWS controlled permissions
+limited plugin support 
+API gateway resource based on swagger when might not be wanted
+
+https://www.linkeit.com/blog/all-you-need-to-know-about-aws-sam
+https://blog.techmagic.co/serverless-framework-vs-aws-sam/
+https://iamondemand.com/blog/kicking-complexity-to-the-curb-with-aws-sam/
+
+- Github actions
+https://github.com/features/actions
+
+kick of work flows based on events 
+such as psuh issue creation merge etc though can be manually triggered as well
+
+allows testing of code using containers multiple language support and community pluggins
+live logs notifications use of secrets store for sensitive variables 
+free tier has limits on on storage which does not reset each month and minutes each month
+https://docs.github.com/en/billing/managing-billing-for-github-actions/viewing-your-github-actions-usage
+
+
+- github actions pros and CONS
+
+https://stackshare.io/github-actions
+
+easy to duplicate a workflows
+intergration with github
+docker support 
+free tier
+marketplace with pluggins and help
+config and logs stored in github
