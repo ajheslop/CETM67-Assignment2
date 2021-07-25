@@ -46,5 +46,5 @@ jobs:
       - name: Code safety with Safety
         run: safety check -r requirements.txt
       - name : Lint with pylint
-        run: pylint ./assignment_lambda --disable=W0703
+        run: pylint ./assignment_lambda --disable=W0703,W0612
 
