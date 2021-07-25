@@ -29,7 +29,7 @@ jobs:
             
       # Run tests
       - name: Run our "test.py" file
-        run: python test.py
+        run: python ./assignment_lambda/test.py
       - name: Job Status
         run: echo "This jobs status is ${{ job.status }}."
         
