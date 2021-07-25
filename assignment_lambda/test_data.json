@@ -1,0 +1,39 @@
+{
+    "0": {
+        "employee": "lionel richy",
+        "employeeId": "555",
+        "manager": "tim diamond"
+    },
+    "1": {
+        "employee": "tim robins",
+        "employeeId": "444",
+        "courses": [
+            {
+                "CourseName": "Go foundation",
+                "CourseProvided": "Go",
+                "Expires": "07-08-2030",
+                "Certificate": "go foundation"
+            }
+        ],
+        "manager": "joe blogs"
+    },
+    "2": {
+        "employee": "Mic jagger",
+        "employeeId": "111",
+        "courses": [
+            {
+                "CourseName": "AWS Foundation",
+                "CourseProvided": "AWS",
+                "Expires": "07-07-2023",
+                "Certificate": "aws foundation course"
+            },
+            {
+                "CourseName": "Python",
+                "CourseProvider": "python.org",
+                "Expires": "N/A",
+                "Certificate": "python foundation"
+            }
+        ],
+        "manager": "joe blogs"
+    }
+}

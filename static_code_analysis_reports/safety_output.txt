@@ -14,7 +14,7 @@
 |                                                                              |
 +==============================================================================+
 | REPORT                                                                       |
-| checked 31 packages, using free DB (updated once a month)                    |
+| checked 36 packages, using free DB (updated once a month)                    |
 +==============================================================================+
 | No known security vulnerabilities found.                                     |
 +==============================================================================+
