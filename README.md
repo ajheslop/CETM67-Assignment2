@@ -14,7 +14,7 @@ flake8 ./assignment_lambda --exclude=env --ignore=E501 > static_code_analysis_re
 
 bandit -r ./assignment_lambda > static_code_analysis_reports/bandit_output.txt
 
-pylint ./assignment_lambda --ignore=env --disable=W0703 > static_code_analysis_reports/pylint_output.txt
+pylint ./assignment_lambda --ignore=env --disable=W0703,W0612 > static_code_analysis_reports/pylint_output.txt
 
 safety check > static_code_analysis_reports/safety_output.txt
 
@@ -77,3 +77,12 @@ Alternatively, you can delete the AWS CloudFormation stack by running the follow
 aws cloudformation delete-stack --stack-name sam-app --region region
 Verify the deleted stack
 For both methods of deleting the AWS CloudFormation stack, you can verify that it was deleted by going to the AWS CloudFormation console. In the left navigation pane, choose Stacks, and then in the dropdown list next to the search box, choose Deleted. You should see your stack's name in the list of deleted stacks.
+
+
+## Terraform
+
+terraform init
+
+terraform fmt
+
+terraform validate
