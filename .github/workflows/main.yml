@@ -47,4 +47,38 @@ jobs:
         run: safety check -r requirements.txt
       - name : Lint with pylint
         run: pylint ./assignment_lambda --disable=W0703,W0612
+  terraform-plan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: install terraform
+      env: 
+          terraform_version: "1.0.3"
+      run: |
+        tf_version=$terraform_version
+        wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+        unzip terraform_"$tf_version"_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+    - name: Verify Terraform version
+      run: terraform --version
+
+    - name: Terraform init
+      env:
+        TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+      working-directory: ./terraform-app
+      run: terraform init -input=false
+
+    - name: Terraform validation
+      working-directory: ./terraform-app
+      run: terraform validate
+
+    - name: Terraform apply
+      env:
+        TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_secret_token: ${{ secrets.AWS_SESSION_TOKEN }}
+      working-directory: ./terraform-app
+      run: terraform apply -auto-approve -input=false
 
