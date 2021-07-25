@@ -43,7 +43,7 @@ jobs:
       - name: Code safety with bandit
         run: bandit -r ./assignment_lambda
       - name: Code safety with Safety
-        run: safety check
+        run: safety check -r requirements.txt
       - name : Lint with pylint
         run: pylint ./assignment_lambda
 
