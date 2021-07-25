@@ -29,7 +29,7 @@ jobs:
             
       # Run tests
       - name: Run our "test.py" file
-        run: python test.py
+        run: python ./assignment_lambda/test.py
       - name: Job Status
         run: echo "This jobs status is ${{ job.status }}."
         
@@ -39,9 +39,11 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
-        run: |
-          flake8 . --ignore=E501
+        run: flake8 ./assignment_lambda
       - name: Code safety with bandit
-        run: |
-          bandit -r ./sam-app
+        run: bandit -r ./assignment_lambda
+      - name: Code safety with Safety
+        run: safety check -r requirements.txt
+      - name : Lint with pylint
+        run: pylint ./assignment_lambda
 
