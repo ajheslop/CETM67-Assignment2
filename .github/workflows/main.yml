@@ -29,7 +29,8 @@ jobs:
             
       # Run tests
       - name: Run our "test.py" file
-        run: python ./assignment_lambda/test.py
+        working-directory: ./assignment_lambda
+        run: python test.py
       - name: Job Status
         run: echo "This jobs status is ${{ job.status }}."
         
@@ -45,5 +46,5 @@ jobs:
       - name: Code safety with Safety
         run: safety check -r requirements.txt
       - name : Lint with pylint
-        run: pylint ./assignment_lambda --disable=W0703
+        run: pylint ./assignment_lambda --disable=W0703,W0612
 
