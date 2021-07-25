@@ -99,7 +99,7 @@ jobs:
       - name: Create Zip File
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r package.zip main.py
+          args: zip -qq -r package.zip ./assignment_lambda/main.py
       - name: Move file to artifacts directory
         run: mv package.zip ./artifacts
       - name: List files in the artifacts directory
