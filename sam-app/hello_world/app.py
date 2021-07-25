@@ -89,7 +89,8 @@ def extract_analysis(data):
             except KeyError:
                 pass
 
-        training_details['courses'] = course_list
+        tmp_list = list(course_list)
+        training_details['courses'] = tmp_list
 
         return training_details
 
