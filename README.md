@@ -10,7 +10,13 @@ AWS SAM
 
 ## linters
 
-flake8 <filename> --exclude=env_project > static_code_analysis_reports/flake8_output.txt
+flake8 ./assignment_lambda --exclude=env,E501 > static_code_analysis_reports/flake8_output.txt
+
+bandit -r ./assignment_lambda > static_code_analysis_reports/bandit_output.txt
+
+pylint ./assignment_lambda --ignore=env > static_code_analysis_reports/pylint_output.txt
+
+safety check > static_code_analysis_reports/safety_output.txt
 
 ## AWS SAM
 
