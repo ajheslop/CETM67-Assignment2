@@ -1,5 +1,5 @@
 import json
-
+import boto3
 # import requests
 
 
@@ -33,10 +33,40 @@ def lambda_handler(event, context):
 
     #     raise e
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "hello world",
-            # "location": ip.text.replace("\n", "")
-        }),
-    }
+    try:
+        # get AWS resouse
+        client = boto3.resource('dynamodb')
+        
+        # dynamodb table name
+        table = client.Table('testTerra')
+        
+        # dynamodb primary key retrieve one item
+        response = table.scan()
+        items = response['Items']
+
+        tmp_dict = {}
+        for count, value in enumerate(items):
+            tmp_dict[count] = value
+    
+        # Construct http response object
+        responseObject = {}
+        responseObject['statusCode'] = 200
+        responseObject['headers'] = {}
+        responseObject['headers']['Content-Type'] = 'application/json'
+        responseObject['body'] = json.dumps(tmp_dict)
+        
+        # Return the response object
+        return responseObject
+    
+    except Exception as error:
+        
+        # Construct http response object 
+        response = {'error_message' : 'an error occured retrieving training details', 'error_detaials': str(error)}
+        responseObject = {}
+        responseObject['statusCode'] = 500
+        responseObject['headers'] = {}
+        responseObject['headers']['Content-Type'] = 'application/json'
+        responseObject['body'] = json.dumps(response)
+        
+        # Return the response object
+        return responseObject
