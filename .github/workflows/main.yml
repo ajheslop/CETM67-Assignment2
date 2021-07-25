@@ -47,6 +47,7 @@ jobs:
         run: safety check -r requirements.txt
       - name : Lint with pylint
         run: pylint ./assignment_lambda --disable=W0703,W0612
+        
   terraform-plan:
     runs-on: ubuntu-latest
     steps:
@@ -82,3 +83,38 @@ jobs:
       working-directory: ./terraform-app
       run: terraform apply -auto-approve -input=false
 
+  package-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: List all files  in repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Make the directory
+        run: |
+          mkdir -p ./artifacts/${{ github.repository }}
+          ls ${{ github.workspace }}
+      - name: Create Zip File
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r package.zip main.py
+      - name: Move file to artifacts directory
+        run: mv package.zip ./artifacts
+      - name: List files in the artifacts directory
+        run: |
+          cd ./artifacts && ls
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+      - name: push zip to S3
+        run: |
+          aws s3 sync './artifacts/.' s3://cetm67testterra
+      - name: Job Stats
+        run: echo "This job status is ${{ job.status }}."
