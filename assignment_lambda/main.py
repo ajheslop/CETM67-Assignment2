@@ -27,7 +27,7 @@ def extract_analysis(data):
     course_list = set()
 
     try:
-        for value in data.items():
+        for key, value in data.items():
             training_details['employee_total'] = training_details['employee_total'] + 1
             try:
                 course_list.add(value['courses'][0]['CourseName'])

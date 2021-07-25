@@ -26,7 +26,7 @@ class TestStringMethod(unittest.TestCase):
 
     def test_extract_analysis(self):
         """ extract analysis success"""
-        test_dict = {'number_of_employees': 3, 'courses': {
+        test_dict = {'employee_total': 3, 'courses': {
             'AWS Foundation', 'Go foundation'}}
         data = read_data('test_data.json')
         self.assertDictEqual(extract_analysis(data), test_dict)
