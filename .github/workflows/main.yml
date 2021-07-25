@@ -49,6 +49,7 @@ jobs:
         run: pylint ./assignment_lambda --disable=W0703,W0612
         
   terraform-plan:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -84,7 +85,7 @@ jobs:
       run: terraform apply -auto-approve -input=false
 
   package-and-deploy:
-
+    needs: terraform-plan
     runs-on: ubuntu-latest
 
     steps:
