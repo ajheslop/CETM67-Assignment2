@@ -31,8 +31,7 @@ resource "aws_dynamodb_table_item" "example" {
   {
     "employeeid": {"S": "tim robins"},
     "manager": {"S": "joe blogs"},
-    "courses": {"L": [{"M": {"Certificate": {"S": "aws foundation course"},"CourseName": {"S": "AWS Foundation"},"CourseProvided": {"S": "AWS"},"Expires": {"S": "07-07-2023"}}},{"M": {"Certificate": {"S": "python foundation"},"CourseName": {"S": "Python"},"CourseProvider": {"S": "python.org"},"Expires": {"S": "N/A"}}}]},
-    "one": {"N" : "1111"}
+    "courses": {"L": [{"M": {"Certificate": {"S": "aws foundation course"},"CourseName": {"S": "AWS Foundation"},"CourseProvided": {"S": "AWS"},"Expires": {"S": "07-07-2023"}}},{"M": {"Certificate": {"S": "python foundation"},"CourseName": {"S": "Python"},"CourseProvider": {"S": "python.org"},"Expires": {"S": "N/A"}}}]}
   }
   ITEM
 }

@@ -47,13 +47,15 @@ def lambda_handler(event, context):
         tmp_dict = {}
         for count, value in enumerate(items):
             tmp_dict[count] = value
+
+        data = extract_analysis(tmp_dict)
     
         # Construct http response object
         responseObject = {}
         responseObject['statusCode'] = 200
         responseObject['headers'] = {}
         responseObject['headers']['Content-Type'] = 'application/json'
-        responseObject['body'] = json.dumps(tmp_dict)
+        responseObject['body'] = json.dumps(data)
         
         # Return the response object
         return responseObject
@@ -70,3 +72,26 @@ def lambda_handler(event, context):
         
         # Return the response object
         return responseObject
+
+
+def extract_analysis(data):
+    """ take json input and perform analysis """
+
+    training_details = {'employee_total': 0}
+
+    course_list = set()
+
+    try:
+        for key, value in data.items():
+            training_details['employee_total'] = training_details['employee_total'] + 1
+            try:
+                course_list.add(value['courses'][0]['CourseName'])
+            except KeyError:
+                pass
+
+        training_details['courses'] = course_list
+
+        return training_details
+
+    except Exception as error:
+        return str(error)
