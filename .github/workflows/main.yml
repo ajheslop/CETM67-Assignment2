@@ -39,11 +39,11 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
-        run: flake8 ./assignment_lambda
+        run: flake8 ./assignment_lambda --ignore=E501
       - name: Code safety with bandit
         run: bandit -r ./assignment_lambda
       - name: Code safety with Safety
         run: safety check -r requirements.txt
       - name : Lint with pylint
-        run: pylint ./assignment_lambda
+        run: pylint ./assignment_lambda --disable=W0703
 
