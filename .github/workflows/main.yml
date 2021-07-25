@@ -18,7 +18,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-test-code:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -49,7 +49,7 @@ jobs:
         run: pylint ./assignment_lambda --disable=W0703,W0612
         
   terraform-plan:
-    needs: build
+    needs: build-test-code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -119,3 +119,24 @@ jobs:
           aws s3 sync './artifacts/.' s3://cetm67testterra
       - name: Job Stats
         run: echo "This job status is ${{ job.status }}."
+        
+  build-deploy-sam:
+    needs: package-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+      # sam build 
+      - name: sam build
+        working-directory: ./sam-app
+        run: sam build --use-container
+      - name: sam deploy
+        working-directory: ./sam-app
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket cetm67testterra --capabilities CAPABILITY_IAM --region us-east-1 
